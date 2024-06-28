@@ -29,3 +29,9 @@ insert into user (id , firstname, lastname) values
 
 --read data
 select * from user
+select firstname , age from user;
+select firstname from users;
+select firstname as "FullName" , age from users;
+select firstname "Names" , age from users;
+select * age from users;
+select concat(firstname, " " , lastname) as "FullName" , age from users
