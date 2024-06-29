@@ -25,8 +25,7 @@ insert into user (id , firstname, lastname) values
 (3,"Narea" , "Modi"),
 (4,"Dev" , "Bharadva");
 
---fnsdfvgh
---gsdfjgsjfgjhnwe
+
 --read data
 select * from user
 select firstname , age from user;
