@@ -133,8 +133,9 @@ FOREIGN KEY (PRODUCT_ID) REFERENCES PRODUCT_MASTER(ProductNo)
 select * from SALES_ORDER_DETAILS;
 
 -- 1. Find out the product, which have been sold to 'Lvan Bayross'
-select sod.* from sales_order_details sod
-JOIN sales_order so ON s_o_d orderNumber = so.orderNo 
+select sod.* from 
+sales_order_details sod 
+JOIN sales_order so ON sod.ORDER_ID = so.ORDERNO 
 JOIN client_master cm ON so.clientnumber = cm.ClienbtNo
 where cm.Name = 'Lvan Bayross'; 
 
