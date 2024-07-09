@@ -47,6 +47,7 @@ values
 ('P06734','Cotton Jeans',5,'peice',100,20,600,450),
 ('P07865','Jeans',5,'peice', 100, 20, 750, 500),
 ('P07868','Trousers',2,'peice',150 ,50,850,550),
+('P07985','Pull overs',2,'peice',150 ,50,850,550),
 ('P07885','Pull Overs',2.5,'peice',80 ,30,700,450),
 ('P07965','Denim Shirts',4,'peice',100 ,40, 350,250),
 ('P07975','Lycra Tops',5,'peice',70 ,30, 300,175),
@@ -102,13 +103,14 @@ create table SALESMAN_MASTER (
 select * from SALES_ORDER;
 
 drop  table sales_order_details;
+
 create table SALES_ORDER_DETAILS (
 ORDER_ID varchar(6) ,
 PRODUCT_ID varchar(6),
 QUANTITY int ,
 DISCOUNT int,
 AMOUNT int,
-FOREIGN  KEY (ORDER_ID) REFERENCES client_master(ClienbtNo),
+FOREIGN  KEY (ORDER_ID) REFERENCES sales_order(ORDERNO),
 FOREIGN KEY (PRODUCT_ID) REFERENCES PRODUCT_MASTER(ProductNo)
 );
 
@@ -123,10 +125,16 @@ FOREIGN KEY (PRODUCT_ID) REFERENCES PRODUCT_MASTER(ProductNo)
 ('O46865', 'P0345', 4, 4, 1050),
 ('O19003', 'P00001', 2, 2, 1050),
 ('O19003', 'P06734', 1, 1, 12000),
-('O46766', 'P07965', 1, 0, 8400),
+('O46866', 'P07965', 1, 0, 8400),
 ('O46866', 'P07975', 1, 0, 1050),
 ('O19008', 'P00001', 10, 5, 525),
 ('O19008', 'P07975', 5, 3, 1050);
 
 
 select * from SALES_ORDER_DETAILS;
+
+select sod.* from sales_order_details sod
+JOIN sales_order so ON s_o_d orderNumber = so.orderNo 
+JOIN client_master cm ON so.clientnumber = cm.ClienbtNo
+where cm.Name = 'Lvan Byroos'; 
+
