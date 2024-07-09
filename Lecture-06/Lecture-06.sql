@@ -82,7 +82,3 @@ select TO_NUMBER ( );
 
 -- group functions
 
- 
-
-
-

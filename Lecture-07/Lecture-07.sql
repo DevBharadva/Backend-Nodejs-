@@ -47,7 +47,6 @@ values
 ('P06734','Cotton Jeans',5,'peice',100,20,600,450),
 ('P07865','Jeans',5,'peice', 100, 20, 750, 500),
 ('P07868','Trousers',2,'peice',150 ,50,850,550),
-('P07985','Pull overs',2,'peice',150 ,50,850,550),
 ('P07885','Pull Overs',2.5,'peice',80 ,30,700,450),
 ('P07965','Denim Shirts',4,'peice',100 ,40, 350,250),
 ('P07975','Lycra Tops',5,'peice',70 ,30, 300,175),
@@ -133,8 +132,65 @@ FOREIGN KEY (PRODUCT_ID) REFERENCES PRODUCT_MASTER(ProductNo)
 
 select * from SALES_ORDER_DETAILS;
 
+-- 1. Find out the product, which have been sold to 'Lvan Bayross'
 select sod.* from sales_order_details sod
 JOIN sales_order so ON s_o_d orderNumber = so.orderNo 
 JOIN client_master cm ON so.clientnumber = cm.ClienbtNo
-where cm.Name = 'Lvan Byroos'; 
+where cm.Name = 'Lvan Bayross'; 
 
+-- 2. find out the product and their quantites that will have to be deliverd in the current month
+select sod.PRODUCT_ID, SUM(sod.QUANTITY) as QuantityDeliverd  
+from sales_order so 
+ join sales_order_details sod  on so.orderNo = sod.ORDER_ID
+where month(SO.DELYDATE) = MONTH(CURDATE()) AND YEAR(SO.DELYDATE) = YEAR(CURDATE())
+GROUP BY SOD.PRODUCT_ID;
+
+-- 3. List the productNo and description of constantly sold products
+SELECT PM.productNo, pm.Description, SUM(sod.QUANTITY) as TotalQuantityOrdered
+from sales_order_details sod 
+join product_master pm on sod.PRODUCT_ID = pm.ProductNo
+group by pm.ProductNo, pm.Description
+order by TotalQuantityOrdered DESC;
+
+-- 4. Find the names of clients who purchased 'Trousers'
+select cm.name AS clientName pm.ProductNo AS NumberOF_Product pm.Description 
+from client_master cm 
+join sales_order so ON cm.ClienbtNo = so .clientNumber
+join sales_order_details sod ON so.orderNo = sod.order_id
+join product_master pm ON sod.product_id = pm.productNO 
+where pm.Description = 'Trousers';
+
+
+-- 5. List the products and their quantites for the order placed by 'Ivan Bayross' and 'Mamta Muzumdar'
+
+-- SELECT cm.Name AS ClientName, sod.PRODUCT_ID, sod.QUANTITY
+-- FROM sales_order so
+-- JOIN SALES_ORDER so ON cm.ClienbtNo = so.clientnumber
+-- JOIN SALES_ORDER_DETAILS sod ON so.ORDERNO = sod.ORDER_ID
+-- join product_master pm ON sod.product_id = pm.ProductNo
+-- WHERE cm.Name IN ('Lvan Bayross', 'Mamta Muzumdar');
+
+select so.orderNo , cm.Name As clientName, pm.Description AS productDescription, sod.quantity 
+from sales_order so 
+join client_master cm ON so.clientnumber = cm.ClienbtNo
+join sales_order_details sod ON so.orderNo = sod.order_id
+join product_master pm ON sod.product_id = pm.ProductNo
+where cm.name In ('Lvan Bayross', 'Mamta Muzundar');
+
+-- 6. list the product and orders from customers who have orded less than 5 units of "Pull Overs"
+
+select so.orderNo , pm.description As productDescription , sod.quantity
+from sales_order so
+join sales_order_details sod ON so.orderNo  = sod.order_id
+join product_master pm ON sod.product_id = pm.productNO
+where pm.description = "Pull Overs"
+And quantity < 5;
+
+-- 7. find out products and their quantites for the orders placed by clientNo 'C00001' and 'C00002'
+
+select so.orderNo ,so.clientNumber, cm.Name As clientName, pm.Description AS productDescription, sod.quantity 
+from sales_order so 
+join client_master cm ON so.clientNumber = cm.ClienbtNo
+join sales_order_details sod ON so.orderNo = sod.order_id
+join product_master pm ON sod.product_id = pm.ProductNo
+where so.clientNumber In ('C00001', 'C00002');
