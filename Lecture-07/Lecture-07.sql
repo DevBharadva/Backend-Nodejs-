@@ -3,7 +3,7 @@ create database Shop;
 show databases;
 use Shop;
 
-drop  table client_master;
+-- drop  table client_master;
 create table CLIENT_MASTER (
      ClienbtNo varchar(6) primary key,
     Name varchar(20),
@@ -26,7 +26,7 @@ values
 
 select * from CLIENT_MASTER;
 
-drop table  PRODUCT_MASTER;
+-- drop table  PRODUCT_MASTER;-- 
 
 create table PRODUCT_MASTER (
 
@@ -39,6 +39,8 @@ create table PRODUCT_MASTER (
      SellPrice int(8) NOT NULL,
      CostPrice int(8) NOT NULL
 );
+
+drop table product_master;
 
 insert into PRODUCT_MASTER 
 values 
@@ -92,7 +94,7 @@ create table SALESMAN_MASTER (
  );
  
  insert into SALES_ORDER (ORDERNO, clientnumber, orderddate, delyaddr, salesmannumber, delytype, billyn, delydate, orderstatus) values 
-('O19001', 'C00001' , '2004-06-12','Address 1','S00001' , 'F' , 'N','2004-06-20' , 'In Process'),
+('O19001', 'C00001' , '2004-06-12','Address 1','S00001' , 'F' , 'N','2004-07-9' , 'In Process'),
 ('O19002', 'C00002' ,'2004-06-25','Address 2','S00002' , 'P' , 'N','2004-06-27' , 'Cancelled'),
 ('O46865', 'C00003', '2004-02-18', 'Address 3','S00003' , 'F' , 'Y','2004-02-20' , 'Fulfiled'),
 ('O19003', 'C00001' , '2004-04-03','Address 4','S00001' , 'F' , 'N','2004-04-07' , 'Fulfiled'),
@@ -102,6 +104,7 @@ create table SALESMAN_MASTER (
 select * from SALES_ORDER;
 
 drop  table sales_order_details;
+
 
 create table SALES_ORDER_DETAILS (
 ORDER_ID varchar(6) ,
@@ -132,44 +135,34 @@ FOREIGN KEY (PRODUCT_ID) REFERENCES PRODUCT_MASTER(ProductNo)
 
 select * from SALES_ORDER_DETAILS;
 
--- 1. Find out the product, which have been sold to 'Lvan Bayross'
+
+
 select sod.* from 
 sales_order_details sod 
 JOIN sales_order so ON sod.ORDER_ID = so.ORDERNO 
 JOIN client_master cm ON so.clientnumber = cm.ClienbtNo
 where cm.Name = 'Lvan Bayross'; 
 
--- 2. find out the product and their quantites that will have to be deliverd in the current month
 select sod.PRODUCT_ID, SUM(sod.QUANTITY) as QuantityDeliverd  
 from sales_order so 
  join sales_order_details sod  on so.orderNo = sod.ORDER_ID
 where month(SO.DELYDATE) = MONTH(CURDATE()) AND YEAR(SO.DELYDATE) = YEAR(CURDATE())
 GROUP BY SOD.PRODUCT_ID;
 
--- 3. List the productNo and description of constantly sold products
 SELECT PM.productNo, pm.Description, SUM(sod.QUANTITY) as TotalQuantityOrdered
 from sales_order_details sod 
 join product_master pm on sod.PRODUCT_ID = pm.ProductNo
 group by pm.ProductNo, pm.Description
 order by TotalQuantityOrdered DESC;
 
--- 4. Find the names of clients who purchased 'Trousers'
-select cm.name AS clientName pm.ProductNo AS NumberOF_Product pm.Description 
+
+select cm.name AS clientName, pm.ProductNo AS NumberOF_Product, pm.Description AS proDescription 
 from client_master cm 
 join sales_order so ON cm.ClienbtNo = so .clientNumber
 join sales_order_details sod ON so.orderNo = sod.order_id
 join product_master pm ON sod.product_id = pm.productNO 
 where pm.Description = 'Trousers';
 
-
--- 5. List the products and their quantites for the order placed by 'Ivan Bayross' and 'Mamta Muzumdar'
-
--- SELECT cm.Name AS ClientName, sod.PRODUCT_ID, sod.QUANTITY
--- FROM sales_order so
--- JOIN SALES_ORDER so ON cm.ClienbtNo = so.clientnumber
--- JOIN SALES_ORDER_DETAILS sod ON so.ORDERNO = sod.ORDER_ID
--- join product_master pm ON sod.product_id = pm.ProductNo
--- WHERE cm.Name IN ('Lvan Bayross', 'Mamta Muzumdar');
 
 select so.orderNo , cm.Name As clientName, pm.Description AS productDescription, sod.quantity 
 from sales_order so 
@@ -178,20 +171,156 @@ join sales_order_details sod ON so.orderNo = sod.order_id
 join product_master pm ON sod.product_id = pm.ProductNo
 where cm.name In ('Lvan Bayross', 'Mamta Muzundar');
 
--- 6. list the product and orders from customers who have orded less than 5 units of "Pull Overs"
-
-select so.orderNo , pm.description As productDescription , sod.quantity
+select so.orderNo , pm.description As proDescription , sod.quantity
 from sales_order so
 join sales_order_details sod ON so.orderNo  = sod.order_id
 join product_master pm ON sod.product_id = pm.productNO
 where pm.description = "Pull Overs"
 And quantity < 5;
 
--- 7. find out products and their quantites for the orders placed by clientNo 'C00001' and 'C00002'
 
-select so.orderNo ,so.clientNumber, cm.Name As clientName, pm.Description AS productDescription, sod.quantity 
+select so.orderNo , sod.product_id,pm.Description AS productDescription, sod.quantity 
+from sales_order so 
+join sales_order_details sod ON so.orderNo = sod.order_id
+join product_master pm ON sod.product_id = pm.ProductNo
+where so.clientNumber In ('C00001', 'C00002');
+
+select so.orderNo ,so.clientNumber, pm.Description AS productDescription, sod.quantity 
 from sales_order so 
 join client_master cm ON so.clientNumber = cm.ClienbtNo
 join sales_order_details sod ON so.orderNo = sod.order_id
 join product_master pm ON sod.product_id = pm.ProductNo
 where so.clientNumber In ('C00001', 'C00002');
+
+
+create user  'newuser'@'localhost' identified by 'password';
+create database student_management;
+
+create table student(
+	student_id int primary key auto_increment,
+    first_name varchar(50),
+    last_name varchar(50),
+    DOB date,
+    gender varchar(10),
+    class_id int
+);
+
+create table classes (
+	class_id int primary key auto_increment,
+    class_name varchar(50),
+    teacher_id int
+);
+
+create table teachers (
+	teacher_id int primary key auto_increment,
+    first_name varchar(50),
+    last_name varchar(50),
+    subject varchar(50)
+);
+
+insert into student values
+(1,'Arjun','Kumar' ,'2005-04-23','male',1),
+(2,'priya','sharma' ,'2006-06-15','female',1),
+(3,'Rohan','singh' ,'2007-09-12','male',2),
+(4,'anjali','varma' ,'2005-11-22','female',2),
+(5,'Amit','patel' ,'2008-02-03','male',1);
+
+insert into classes values 
+(1,'Mathematics' , 1),
+(2,'Science' , 2),
+(3,'English' , 3),
+(4,'History' , 4),
+(5,'Geoghraphy' , 5);
+
+
+insert into teachers values
+(1,'Ravi','Mehata','Mathematics'),
+(2,'Suman','Rao','Science'),
+(3,'Kavita','Desai','English'),
+(4,'Rajerh','Khan','History'),
+(5,'Sneh','Joshi','Geography');
+
+select * from student where class_id = 1;
+
+select first_name  , last_name from teachers;
+
+create table Enrollments (
+enrollment_id int primary key auto_increment,
+enrollment_date date,
+student_id int,
+teacher_id int,
+foreign key (student_id) REFERENCES student(student_id) on delete cascade,
+foreign key (teacher_id) REFERENCES teachers(teacher_id) 
+);
+
+
+insert into Enrollments values 
+(1,'2024-07-05' , 1,1),
+(2,'2024-07-06' , 2,2),
+(3,'2024-07-07' , 3,3),
+(4,'2024-07-08' , 4,4),
+(5,'2024-07-09' , 5,5);
+
+select * from enrollments;
+
+select e.enrollment_id , 
+	   e.enrollment_date,
+	   concat(s.first_name ,' ', s.last_name) as 'Student_Name',
+       c.class_name
+	from enrollments e
+    join student s on e.student_id = s.student_id
+    join classes c on s.class_id = c.class_id;
+    
+    
+update student set last_name = 'singh'  where student_id = 1;
+
+update teachers set subject = 'physics' where teacher_id = 2;
+
+select count(class_id) from student;
+
+select max(floor(datediff('2024-07-11',DOB) / 365))  as max_age from student; 
+
+DELETE FROM student WHERE student_id = 5;
+
+delete from enrollments where enrollment_id = 4;
+
+select * from student where first_name like 'A%';
+
+select class_id, count(*) as number_of_student from student group by class_id;
+
+desc classes;
+select class_id from classes where classes_name = "Mathematics";
+select first_name , last_name  from student  where class_id = (select class_id from classes where classes_name = "Mathematics"); 
+desc student;
+
+-- select * from student where class_id = 1; 
+select * from student where gender = 'male' and class_id = 1;
+
+select first_name ,  last_NAME, 'STUDENT' as role from student
+union
+select first_name , last_name ,'teacher' as role from teachers;
+
+select first_name , last_name ,count(*)
+from student
+group by first_name having count(*) > 1;
+
+select * from student where class_id not in (1,2);
+
+select * from enrollments where enrollment_date between '2024-07-08' and '2024-7-09';
+
+alter table student add firstname  varchar(50);
+
+select * from student;
+
+alter table classes change class_name classes_name varchar(50);
+select * from classes;
+
+alter table teachers add birthdate date;
+
+select * from teachers;
+
+update student set last_name = 'Khan' where student_id = 4;
+
+select * from student;
+
+select * from classes where 
