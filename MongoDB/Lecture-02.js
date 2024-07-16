@@ -77,6 +77,10 @@ db.mydatabase.insertMany([
   
 ])
 
+
+
+
+
 // import json file
 
 // mongoimport jsonfile.json -d database_name -c collection_name
@@ -103,7 +107,7 @@ db.mydatabase.insertMany([
 
 // $in & nin(not in)
 // ex :- db.home.find({'price':{$in: [110,240]}})
-// ex :- db.home.find({'price':{$nin: [110,240]}})
+// ex :-    
 
 
 /* Cursor method */
@@ -116,6 +120,7 @@ db.mydatabase.insertMany([
 
 // examples
 1.
+      db.home.find().count()
        db.home.find({'price':{$gt:110}}).count()
 2. 
       db.home.find().limit(4)
