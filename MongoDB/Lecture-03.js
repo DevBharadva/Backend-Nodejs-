@@ -5,6 +5,7 @@
 /* import json files */
 
 //  mongoimport --db market --collection product --file F:\Mongodb\mongodb_json\product.json --jsonArray
+//  mongoimport --db shop --collection home --file  --jsonArray
 
 /* update and delete Querys  */
 
@@ -15,16 +16,24 @@
                                                                      {$set : {price:200}});  // update operation
 
    2. updateMany           => syntax -> db.database_name.updateMany({title:'rose holdback'},{$set: {title:devil}})
+   
+   db.product.updateMany({}, { $set: {course: "fullstack"}})
+   db.product.updateMany({}, { $unset: {course: ""}})
+   db.product.updateMany({title:'Khakhi jeans'}, { $unset: {price: ""}})
 
-*/
+   db.home.updateOne({filed_name}, {$rename: {'oldname', 'newname'}})
+   
+   */
 
 /* delete Querys 
 
    1. deleteone            => syntax -> db.database_name.deleteOne({title:"name"})
 
-   2. deleteMany           => syntax -> db.database_name.deleteMany({title:''})
-*/
+   2. deleteMany           => syntax -> db.database_name.deleteMany({course:'fullstack'})
 
+   db.product.deleteOne({course:'fullstack'})
+   
+*/
 
 /* Logical Operator */
 
@@ -78,12 +87,32 @@ db.product.find({$nor: [{oldPrice: {$gte:70}}, {title:'Blue jins'}]})
 // $not
 db.product.find({oldprice: {$not: {$gt: 80}}}).count()
 
-
-
 /* Complex expresion */
 
+// => The $expr operstor allows using aggregation expressionwithin a query
+// => compare fileds from the same document 
+
 ex:- 
-    db.product.find({ $expr: {$gt: [$price,200]}})
+    db.product.find({ $expr: {$gt: ["$price",200]}})
+    
+    /* Elements operator  */
+    
+// 1. exists
+// {filed: {$exists: boolean}}
+// 2. type
+//{field: {type:"<bson-data-type>"}}
+// 3. size
+// {field: {$size: <array length>}}
+
+    ex:-
+    1. // db.product.find({price: {$exists:false}}).count()
+    2. // db.home.find({pages:{type:'number'}}).count()
+      // db.home.find({pages:{type:'string'}}).count()
+
+   3. // db.pages.find({pages:{$size:2}})
 
 
-   
+   /* projection */
+
+
+
