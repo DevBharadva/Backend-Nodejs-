@@ -35,6 +35,8 @@
    2. deleteMany           => syntax -> db.database_name.deleteMany({course:'fullstack'})
 
    db.product.deleteOne({course:'fullstack'})
+
+   db.developer.deleteOne({email:"test1@test.com"})
    
 */
 
@@ -119,14 +121,19 @@ ex:-
 
    /* To include specific fields, use projection with a value 
    of 1 for the fields you want.*/
+
    /* To exclude fields, use projection with a value of 0 for the fields you want to exclude
    /* you cannot include and exclude fields simultaneously in the same query projection */
+
    // db.developer.find()
 
-// db.developer.find({"address":{$size:2}})
-// db.developer.find({address:1})
-// db.developer.find({"address":{$size:2}},{address:1,_id:0})
-// db.developer.find({"address":{$size:2}},{email:1})
+   // db.developer.find({"address":{$size:2}})
+
+   // db.developer.find({address:1})
+
+   // db.developer.find({"address":{$size:2}},{address:1,_id:0})
+
+   // db.developer.find({"address":{$size:2}},{email:1})
 
 
 /* Emebeded Document  */
@@ -142,3 +149,10 @@ ex:
       db.developer.find({'address':{$elemMatch: {'county':'India','price':450}}})
 
 /* Update in array emebed document */      
+
+ex:- 
+db.developer.updateOne({email:"test1@test.com", "address.county":"Something"}, {$set: {"address.$.county":"India"}})
+db.developer.updateOne({email:"test1@test.com", "address.county":"Something"}, {$unset: {"address.$.county":""}})
+db.developer.updateOne({email:"test1@test.com"},{$push: {address: {county: "India"}}})
+db.developer.updateOne({email:"test1@test.com"},{$pop:{"address":1}})
+
