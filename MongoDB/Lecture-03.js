@@ -21,9 +21,12 @@
    db.product.updateMany({}, { $unset: {course: ""}})
    db.product.updateMany({title:'Khakhi jeans'}, { $unset: {price: ""}})
 
+   
+   
    db.home.updateOne({filed_name}, {$rename: {'oldname', 'newname'}})
    
    */
+  ex:- db.home.updateMany({pages : {$gt: 256}}, {$rename: {"title": "Names"}})
 
 /* delete Querys 
 
@@ -109,10 +112,33 @@ ex:-
     2. // db.home.find({pages:{type:'number'}}).count()
       // db.home.find({pages:{type:'string'}}).count()
 
-   3. // db.pages.find({pages:{$size:2}})
+   3. // db.home.find({pages:{$size:2}})
 
 
    /* projection */
 
+   /* To include specific fields, use projection with a value 
+   of 1 for the fields you want.*/
+   /* To exclude fields, use projection with a value of 0 for the fields you want to exclude
+   /* you cannot include and exclude fields simultaneously in the same query projection */
+   // db.developer.find()
+
+// db.developer.find({"address":{$size:2}})
+// db.developer.find({address:1})
+// db.developer.find({"address":{$size:2}},{address:1,_id:0})
+// db.developer.find({"address":{$size:2}},{email:1})
 
 
+/* Emebeded Document  */
+
+ex:
+   db.developer.find({'address.county':'Everywhere'})
+
+
+   /* $all and $elematch */
+
+   // ex:-
+      db.developer.find({'address.county': {$all: ['india','USA']}})
+      db.developer.find({'address':{$elemMatch: {'county':'India','price':450}}})
+
+/* Update in array emebed document */      
