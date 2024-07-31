@@ -1,0 +1,11 @@
+ 1. What is Node JS
+=> Node js is a runtime Env. for Javascript
+=> Open-source and cross platform  runtime that runs on Google's V8 Javascript engine
+
+key points 
+- Nodejs                     => An open-source cross platform 
+- V8 engine                  => Bulit on google high performancw v8 javascript engine
+- Javascript Outside         => Enables usign Javascript
+- Browser                    => beyond just web browsers
+- Scalable Applications      => Suitable for buliding scalble Applications
+- high Performance           => Designed for Performance efficincy    
