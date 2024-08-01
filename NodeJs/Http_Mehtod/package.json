@@ -1,0 +1,14 @@
+{
+  "name": "http_mehtod",
+  "version": "1.0.0",
+  "description": "",
+  "main": "get.js",
+  "scripts": {
+    "start": "node get"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "url": "^0.11.4"
+  }
+}

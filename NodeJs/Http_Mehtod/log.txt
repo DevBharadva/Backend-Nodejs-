@@ -1,0 +1,12 @@
+1722512328315: GET / New Res Received 
+1722512337317: GET / New Res Received 
+1722513296698: GET /signup New Res Received 
+1722513307721: GET /signup New Res Received 
+1722513347353: GET /signup New Res Received 
+1722513351811: GET /signup New Res Received 
+1722513386476: GET /signup New Res Received 
+1722513445688: GET /signup New Res Received 
+1722513461737: GET /signup New Res Received 
+1722513516305: GET / New Res Received 
+1722513531220: GET /signup New Res Received 
+1722513541723: GET /search?search_query New Res Received 

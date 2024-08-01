@@ -7,12 +7,14 @@
 
 // command js
 
-// const fs = require('fs');
+const math = require('./hello');
+
+console.log("Math value is",math.sub(58,89));
 
 // function add(a, b){
-//     return 20 + 30;
+//     return a + b;
 // }
-// console.lo("a+b=",a , b);
+// console.lo(add(20+30));
 
 
 // function mul(a,b){
@@ -30,8 +32,8 @@
 //   console.log(data);
 // });
 
-const path = require('path');
+// const path = require('path');
 
-const filePath = path.join(__dirname, 'example.txt');
-console.log(filePath);
+// const filePath = path.join(__dirname, 'example.txt');
+// console.log(filePath);
 
