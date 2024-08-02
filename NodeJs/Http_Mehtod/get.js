@@ -1,10 +1,12 @@
-/* Http get Method */
+/* Http GET & POST Method */
+
 // => When you want to get some data from the server
+
+// => When you want to send and mutate some data in server
 
 const http = require('http');
 const fs = require('fs');
 const url = require('url');
-
 
 const server = http.createServer((req, res) => {
     if (req.url == '/favicon.ico') return res.end();
@@ -36,9 +38,3 @@ const server = http.createServer((req, res) => {
 });
 
 server.listen(4000, () => console.log("Your Server Start!"))
-
-
-
-/* Http post Method */
-
-// => When you want to send and mutate some data in server

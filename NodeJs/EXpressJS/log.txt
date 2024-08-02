@@ -1,0 +1,18 @@
+// version
+
+// 
+4.19.2
+
+1st part => 4
+2st part => 19
+3rd part => 2
+
+// 3rd part (last part) - Minor Fixes (Optional)
+Latest -> 4.19.2
+
+// 2nd part - Recommanded Bug Fix (Security fix)
+const http = require('http');
+Latest -> 4.19.1
+
+// 3rd Major release
+5.0.0
