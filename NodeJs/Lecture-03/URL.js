@@ -19,7 +19,7 @@ const server = http.createServer((req,res)=> {
 
             case '/search':
                 const search = myurl.query.search_query;
-                res.end('here Are your result for'+search);
+                res.end('here Are your result for ' + search);
                break
             default: res.end("404 Not Found");
         }

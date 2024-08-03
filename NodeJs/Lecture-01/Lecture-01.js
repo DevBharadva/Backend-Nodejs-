@@ -9,7 +9,7 @@
 
 const math = require('./hello');
 
-console.log("Math value is",math.sub(58,89));
+console.log("Math value is",math.add(54,89));
 
 // function add(a, b){
 //     return a + b;
