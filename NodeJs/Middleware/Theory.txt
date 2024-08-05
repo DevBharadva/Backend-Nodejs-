@@ -1,0 +1,10 @@
+/* Using middleware */
+=> middleware functions in Express.js access the request and response object,
+   modify them,and pass control to the next function in the cycle using 'next'
+
+/* It's can perform the  */
+
+1. Execute any code.
+2. Make changes to the request and the response objects
+3. End the request-responce cycle
+4. call the next middleware function in the stack
