@@ -1,0 +1,15 @@
+Key Differences Between Dependencies and devDependencies
+
+Aspect	                            Dependencies	                                                          devDependencies
+
+Purpose	               Needed for the application to run in production.                            Only needed during development and testing.
+
+Installation	               npm install <package-name>	                                        npm install <package-name> --save-dev or -D
+
+Environment	              Used in production environments.	                                    Not included in production builds by default.
+
+Usage	                Core functionality, frameworks, libraries.	                                Build tools, testing frameworks, linters, transpilers.
+
+Section	                    "dependencies" in package.json.	                                           "devDependencies" in package.json.
+
+Deployment	             Included in production deployment.	                                     Excluded in production deployment unless specified.
