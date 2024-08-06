@@ -4,9 +4,9 @@
 
 const express = require('express');
 const fs = require('fs');
-const users = require('./MOCK_DATA (1).json')
+const users = require('./mock_data.json')
 const app = express();
-const PORT = 8080;
+const PORT = 7070;
 
 // Middleware - Plugin
 app.use(express.urlencoded({ extended: false }));
@@ -37,11 +37,11 @@ app.get("/api/users", (req, res) => {
 app.post('/api/users', (req, res) => {
     const body = req.body;
     users.push({...body});
-    fs.writeFile('./MOCK_DATA (1).json', JSON.stringify(users),(err,data)=>{
-            return res.json({ status: "success", id: users.length});
+    fs.writeFile('./mock_data.json', JSON.stringify(users),(err,data)=>{
+            return res.json({ status: "success", id: users.length+1});
         });
 });
-
+    
 // Routes
 app.get("/users", (req, res) => {
     const html = `

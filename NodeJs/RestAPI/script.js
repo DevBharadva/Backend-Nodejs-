@@ -16,35 +16,27 @@ app.get("/api/users", (req, res) => {
     return res.json(users);
 });
 
-// app
-// .route('/api/users/:id')
-// .get("/api/users/:id",(req,res)=>{
-//     const id = Number(req.params.id);
-//     const user = users.find((user)=> user.id === id);
-//     return res.json(user)
-// })
-
-// app
-// // .route('/api/users/:id')
-// .get((req,res)=>{
-//     const id = Number(req.params.id);
-//     const user = users.find((user)=> user.id === id);
-//     return res.json(user)
-// })
-// .patch((req,res)=>{
-//     //Edit user with id
-//     res.json({status:"pending"})
-// })
-// .delete((req,res)=>{
-//     //Delete user with id
-//     res.json({status:"pending"})
-// })
+app
+.route('/api/users/:id')
+.get((req,res)=>{
+    const id = Number(req.params.id);
+    const user = users.find((user)=> user.id === id);
+    return res.json(user)
+})
+.patch((req,res)=>{
+    //Edit user with id
+    res.json({status:"pending"})
+})
+.delete((req,res)=>{
+    //Delete user with id
+    res.json({status:"pending"})
+})
 
 app.post('/api/users', (req, res) => {
     const body = req.body;
-    users.push({...body});
+    users.push({id: users.length+1,...body});
     fs.writeFile('./MOCK_DATA (1).json', JSON.stringify(users),(err,data)=>{
-            return res.json({ status: "success", id: users.length});
+            return res.json({ status: "success", });
         });
 });
 
