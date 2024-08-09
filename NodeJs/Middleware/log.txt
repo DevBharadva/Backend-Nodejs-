@@ -12,3 +12,7 @@ GET: /api/users1722858689464: GET: /api/users
 1722940580230:::1 GET: /favicon.ico
 1722940587367:::1 GET: /users
 1722942033937:::1 GET: /api/users
+1723190684417:::1 POST: /api/users
+1723190714795:::1 GET: /api/users
+1723190722230:::1 POST: /api/users
+1723190782524:::1 POST: /api/users

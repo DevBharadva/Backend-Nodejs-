@@ -18,7 +18,7 @@ app.use((req,res,next)=>{
     })
     console.log("Hello From your own middleware");
     // return res.json({msg:"Hello From middleware"})
-    req.myUserName = "DevBharadva"
+    // req.myUserName = "DevBharadva"
     next();
 })
 
@@ -36,9 +36,9 @@ app.get("/api/users", (req, res) => {
 
 app.post('/api/users', (req, res) => {
     const body = req.body;
-    users.push({...body});
+    users.push({id: users.length+1,...body});
     fs.writeFile('./MOCK_DATA (1).json', JSON.stringify(users),(err,data)=>{
-            return res.json({ status: "success", id: users.length});
+            return res.json({ status: "success"});
         });
 });
 

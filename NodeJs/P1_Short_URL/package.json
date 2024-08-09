@@ -1,17 +1,18 @@
 {
-  "name": "mongodb_with_express",
+  "name": "p1_short_url",
   "version": "1.0.0",
+  "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon temp.js",
-    "dev": "nodemon temp.js"
+    "dev": "nodemon index.js"
   },
   "author": "",
   "license": "ISC",
-  "description": "",
   "dependencies": {
+    "ejs": "^3.1.10",
     "express": "^4.19.2",
-    "mongoose": "^8.5.2"
+    "mongoose": "^8.5.2",
+    "shortid": "^2.2.16"
   },
   "devDependencies": {
     "nodemon": "^3.1.4"
